@@ -138,3 +138,4 @@ const NewItems = () => {
 };
 
 export default NewItems;
+
