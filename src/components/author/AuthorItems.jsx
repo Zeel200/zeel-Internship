@@ -1,61 +1,78 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import AuthorImage from "../../images/author_thumbnail.jpg";
-import nftImage from "../../images/nftImage.jpg";
 
 const AuthorItems = () => {
+  const { authorId } = useParams();
+  const [author, setAuthor] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [followers, setFollowers] = useState(0);
+
+  useEffect(() => {
+    const fetchAuthorData = async () => {
+      try {
+        const response = await fetch(`https://api.example.com/authors/${authorId}`);
+        const data = await response.json();
+        setAuthor(data);
+        setFollowers(data.followers);
+      } catch (error) {
+        console.error("Error fetching author data:", error);
+      }
+    };
+
+    const fetchAuthorProducts = async () => {
+      try {
+        const response = await fetch(`https://api.example.com/authors/${authorId}/products`);
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching author products:", error);
+      }
+    };
+
+    fetchAuthorData();
+    fetchAuthorProducts();
+  }, [authorId]);
+
+  const handleFollow = () => {
+    setFollowers((prev) => prev + 1);
+  };
+
+  if (!author) return <p>Loading author details...</p>;
+
   return (
-    <div className="de_tab_content">
-      <div className="tab-1">
-        <div className="row">
-          {new Array(8).fill(0).map((_, index) => (
-            <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={index}>
-              <div className="nft__item">
-                <div className="author_list_pp">
-                  <Link to="">
-                    <img className="lazy" src={AuthorImage} alt="" />
-                    <i className="fa fa-check"></i>
-                  </Link>
-                </div>
-                <div className="nft__item_wrap">
-                  <div className="nft__item_extra">
-                    <div className="nft__item_buttons">
-                      <button>Buy Now</button>
-                      <div className="nft__item_share">
-                        <h4>Share</h4>
-                        <a href="" target="_blank" rel="noreferrer">
-                          <i className="fa fa-facebook fa-lg"></i>
-                        </a>
-                        <a href="" target="_blank" rel="noreferrer">
-                          <i className="fa fa-twitter fa-lg"></i>
-                        </a>
-                        <a href="">
-                          <i className="fa fa-envelope fa-lg"></i>
-                        </a>
-                      </div>
-                    </div>
+    <div className="author-details">
+      <div className="author-info">
+        <img src={author.image} alt={author.name} className="author-image" />
+        <h2>{author.name}</h2>
+        <p>Followers: {followers}</p>
+        <button onClick={handleFollow}>Follow</button>
+      </div>
+      <div className="de_tab_content">
+        <div className="tab-1">
+          <div className="row">
+            {products.map((product) => (
+              <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={product.id}>
+                <div className="nft__item">
+                  <div className="nft__item_wrap">
+                    <Link to={`/item-details/${product.id}`}>
+                      <img src={product.image} className="lazy nft__item_preview" alt={product.name} />
+                    </Link>
                   </div>
-                  <Link to="/item-details">
-                    <img
-                      src={nftImage}
-                      className="lazy nft__item_preview"
-                      alt=""
-                    />
-                  </Link>
-                </div>
-                <div className="nft__item_info">
-                  <Link to="/item-details">
-                    <h4>Pinky Ocean</h4>
-                  </Link>
-                  <div className="nft__item_price">2.52 ETH</div>
-                  <div className="nft__item_like">
-                    <i className="fa fa-heart"></i>
-                    <span>97</span>
+                  <div className="nft__item_info">
+                    <Link to={`/item-details/${product.id}`}>
+                      <h4>{product.name}</h4>
+                    </Link>
+                    <div className="nft__item_price">{product.price} ETH</div>
+                    <div className="nft__item_like">
+                      <i className="fa fa-heart"></i>
+                      <span>{product.likes}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
