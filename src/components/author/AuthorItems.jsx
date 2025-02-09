@@ -11,7 +11,7 @@ const AuthorItems = () => {
   useEffect(() => {
     const fetchAuthorData = async () => {
       try {
-        const response = await fetch(`https://api.example.com/authors/${authorId}`);
+        const response = await fetch(`https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=73855012`);
         const data = await response.json();
         setAuthor(data);
         setFollowers(data.followers);
@@ -22,7 +22,7 @@ const AuthorItems = () => {
 
     const fetchAuthorProducts = async () => {
       try {
-        const response = await fetch(`https://api.example.com/authors/${authorId}/products`);
+        const response = await fetch(`https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=73855012/products`);
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -45,8 +45,6 @@ const AuthorItems = () => {
       <div className="author-info">
         <img src={author.image} alt={author.name} className="author-image" />
         <h2>{author.name}</h2>
-        <p>Followers: {followers}</p>
-        <button onClick={handleFollow}>Follow</button>
       </div>
       <div className="de_tab_content">
         <div className="tab-1">

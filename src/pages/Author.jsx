@@ -1,10 +1,13 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import AuthorBanner from "../images/author_banner.jpg";
 import AuthorItems from "../components/author/AuthorItems";
 import { Link } from "react-router-dom";
 import AuthorImage from "../images/author_thumbnail.jpg";
 
 const Author = () => {
+  const { authorId } = useParams();
+
   return (
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
@@ -26,7 +29,6 @@ const Author = () => {
                   <div className="de-flex-col">
                     <div className="profile_avatar">
                       <img src={AuthorImage} alt="" />
-
                       <i className="fa fa-check"></i>
                       <div className="profile_name">
                         <h4>
