@@ -13,7 +13,7 @@ const ExploreItems = () => {
         const data = await response.json();
         setItems((prevItems) => [...prevItems, ...data.map((item) => ({
           ...item,
-          timer: item.timer - Math.floor(Date.now() / 1000),
+          timer: item.expiryDate - Math.floor(Date.now() / 1000),
         }))]);
       } catch (error) {
         console.error("Error fetching explore items:", error);
@@ -29,7 +29,7 @@ const ExploreItems = () => {
     const interval = setInterval(() => {
       setItems((prevItems) =>
         prevItems.map((item) => {
-          const remainingTime = Math.max(item.timer - 1, 0);
+          const remainingTime = Math.max(item.expiryDate - 1, 0);
           return { ...item, timer: remainingTime };
         })
       );
@@ -75,7 +75,7 @@ const ExploreItems = () => {
                       <i className="fa fa-check"></i>
                     </Link>
                   </div>
-                  <div className="de_countdown">{formatTime(item.timer)}</div>
+                  <div className="de_countdown">{formatTime(item.expiryDate)}</div>
 
                   <div className="nft__item_wrap">
                     <Link to={`/item-details/${item.id}`}>
