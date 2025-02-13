@@ -86,7 +86,7 @@ const NewItems = () => {
             ) : (
               <OwlCarousel className="owl-theme" {...carouselOptions}>
                 {newItems.map((item, index) => (
-                  <div className="item" key={item.id || index}>
+                  <div className="item" key={item.nftid || index}>
                     <div className="nft__item">
                       {/* Author */}
                       <div className="author_list_pp">
