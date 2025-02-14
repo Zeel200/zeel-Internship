@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
 const ItemDetails = () => {
-  const { nftid } = useParams();
+  const { nftId } = useParams();
   const [itemData, setItemData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -14,7 +14,7 @@ const ItemDetails = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `https://us-central1-nft-cloud-functions.cloudfunctions.net/itemDetails?nftId=${nftid}`
+          `https://us-central1-nft-cloud-functions.cloudfunctions.net/itemDetails?nftId=${nftId}`
         );
         const data = await response.json();
         setItemData(data);
@@ -26,7 +26,7 @@ const ItemDetails = () => {
     };
 
     fetchItemData();
-  }, [nftid]);
+  }, [nftId]);
 
   if (loading) {
     return (

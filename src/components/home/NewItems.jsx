@@ -86,7 +86,7 @@ const NewItems = () => {
             ) : (
               <OwlCarousel className="owl-theme" {...carouselOptions}>
                 {newItems.map((item, index) => (
-                  <div className="item" key={item.nftid || index}>
+                  <div className="item" key={item.nftId || index}>
                     <div className="nft__item">
                       {/* Author */}
                       <div className="author_list_pp">
@@ -106,7 +106,7 @@ const NewItems = () => {
                       </div>
                       {/* Item Image */}
                       <div className="nft__item_wrap">
-                        <Link to={`/item-details/${item.nftid}`}>
+                        <Link to={`/item-details/${item.nftId}`}>
                           <img
                             src={item.nftImage}
                             className="lazy nft__item_preview"
@@ -116,7 +116,7 @@ const NewItems = () => {
                       </div>
                       {/* Info */}
                       <div className="nft__item_info">
-                        <Link to={`/item-details/${item.nftid}`}>
+                        <Link to={`/item-details/${item.nftId}`}>
                           <h4>{item.name}</h4>
                         </Link>
                         <div className="nft__item_price">{item.price} ETH</div>
