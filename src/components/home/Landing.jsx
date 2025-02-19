@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import NFT from "../../images/nft.png";
 import backgroundImage from "../../images/bg-shape-1.jpg";
 import { Link } from "react-router-dom";
 
 const Landing = () => {
+  useEffect(() => {
+    AOS.init({ duration: 2000 });
+  }, []);
+
   return (
     <section
       id="section-hero"
@@ -23,8 +29,8 @@ const Landing = () => {
                 </span>
               </h6>
               <div className="spacer-10"></div>
-              <h1>Create, sell or collect digital items.</h1>
-              <p className="lead">
+              <h1 data-aos="fade-up">Create, sell or collect digital items.</h1>
+              <p className="lead" data-aos="fade-up">
                 Unit of data stored on a digital ledger, called a blockchain,
                 that certifies a digital asset to be unique and therefore not
                 interchangeable
